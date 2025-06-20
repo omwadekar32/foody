@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Details - Food Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Food Delivery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="admin.html">Admin Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <header class="mb-4">
+            <h1 id="restaurant-name">Restaurant Name</h1>
+            <p id="restaurant-location">Location: Placeholder</p>
+            <p id="restaurant-cuisine">Cuisine: Placeholder</p>
+            <p id="restaurant-rating">Rating: Placeholder</p>
+            <img src="https://via.placeholder.com/800x300" class="img-fluid mb-3" alt="Restaurant Banner" id="restaurant-image">
+        </header>
+
+        <h2>Menu</h2>
+        <div class="row" id="menu-items-list">
+            <!-- Menu items will be dynamically inserted here -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/150" class="img-fluid rounded-start" alt="Dish Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Dish Name 1</h5>
+                                <p class="card-text">Description of the dish. Lorem ipsum dolor sit amet.</p>
+                                <p class="card-text"><strong>Price: $12.99</strong></p>
+                                <button class="btn btn-success">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/150" class="img-fluid rounded-start" alt="Dish Image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Dish Name 2</h5>
+                                <p class="card-text">Another delicious dish. Consectetur adipiscing elit.</p>
+                                <p class="card-text"><strong>Price: $10.50</strong></p>
+                                <button class="btn btn-success">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more menu items as needed -->
+        </div>
+    </div>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2025 Food Delivery
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/restaurant_detail.js"></script> <!-- Specific JS for this page -->
+</body>
+</html>

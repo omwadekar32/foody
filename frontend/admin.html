@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Food Delivery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css"> <!-- Specific admin styles -->
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading text-light">Admin Panel </div>
+            <div class="list-group list-group-flush">
+                <a href="#dashboard" class="list-group-item list-group-item-action bg-dark text-light active" data-bs-toggle="tab" data-bs-target="#dashboard-content"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+                <a href="#restaurants" class="list-group-item list-group-item-action bg-dark text-light" data-bs-toggle="tab" data-bs-target="#restaurants-content"><i class="bi bi-shop me-2"></i>Restaurants</a>
+                <a href="#menu-items" class="list-group-item list-group-item-action bg-dark text-light" data-bs-toggle="tab" data-bs-target="#menu-items-content"><i class="bi bi-card-list me-2"></i>Menu Items</a>
+                <a href="#orders" class="list-group-item list-group-item-action bg-dark text-light" data-bs-toggle="tab" data-bs-target="#orders-content"><i class="bi bi-cart3 me-2"></i>Orders</a>
+                <a href="#users" class="list-group-item list-group-item-action bg-dark text-light" data-bs-toggle="tab" data-bs-target="#users-content"><i class="bi bi-people me-2"></i>Users</a>
+                <a href="index.html" class="list-group-item list-group-item-action bg-dark text-light mt-auto"><i class="bi bi-box-arrow-left me-2"></i>Logout (to Home)</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="menu-toggle"><i class="bi bi-list"></i></button>
+                    <div class="ms-auto">Welcome, Admin!</div>
+                </div>
+            </nav>
+
+            <div class="container-fluid p-4 tab-content">
+                <!-- Dashboard Content -->
+                <div class="tab-pane fade show active" id="dashboard-content" role="tabpanel">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <p>Welcome to the admin dashboard. Manage your platform efficiently.</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card text-white bg-primary mb-3">
+                                <div class="card-header">Total Restaurants</div>
+                                <div class="card-body">
+                                    <h5 class="card-title" id="total-restaurants">15</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-white bg-success mb-3">
+                                <div class="card-header">Total Orders</div>
+                                <div class="card-body">
+                                    <h5 class="card-title" id="total-orders">120</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-white bg-info mb-3">
+                                <div class="card-header">Registered Users</div>
+                                <div class="card-body">
+                                    <h5 class="card-title" id="total-users">50</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restaurants Management Content -->
+                <div class="tab-pane fade" id="restaurants-content" role="tabpanel">
+                    <h1 class="mt-4">Manage Restaurants</h1>
+                    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addRestaurantModal"><i class="bi bi-plus-circle me-2"></i>Add New Restaurant</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Cuisine</th>
+                                <th>Rating</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-restaurant-list">
+                            <!-- Mock Data -->
+                            <tr>
+                                <td>1</td>
+                                <td>Pizza Place</td>
+                                <td>Downtown</td>
+                                <td>Italian</td>
+                                <td>4.5</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRestaurantModal" data-id="1"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteRestaurant(1)"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Taco Town</td>
+                                <td>Uptown</td>
+                                <td>Mexican</td>
+                                <td>4.2</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editRestaurantModal" data-id="2"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteRestaurant(2)"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Menu Items Management Content -->
+                <div class="tab-pane fade" id="menu-items-content" role="tabpanel">
+                    <h1 class="mt-4">Manage Menu Items</h1>
+                     <div class="mb-3">
+                        <label for="restaurant-select-for-menu" class="form-label">Select Restaurant:</label>
+                        <select class="form-select" id="restaurant-select-for-menu">
+                            <option value="1">Pizza Place</option>
+                            <option value="2">Taco Town</option>
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+                    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addMenuItemModal"><i class="bi bi-plus-circle me-2"></i>Add New Menu Item</button>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-menu-item-list">
+                            <!-- Mock Data for selected restaurant -->
+                            <tr>
+                                <td>101</td>
+                                <td>Margherita Pizza</td>
+                                <td>$12.99</td>
+                                <td>Classic cheese and tomato</td>
+                                <td>Pizza</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editMenuItemModal" data-id="101"><i class="bi bi-pencil-square"></i></button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteMenuItem(101)"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Orders Management Content -->
+                <div class="tab-pane fade" id="orders-content" role="tabpanel">
+                    <h1 class="mt-4">View All Orders</h1>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>User ID</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Total Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-order-list">
+                            <!-- Mock Data -->
+                            <tr>
+                                <td>ORD001</td>
+                                <td>USR101</td>
+                                <td>2025-06-20</td>
+                                <td><span class="badge bg-warning text-dark">Preparing</span></td>
+                                <td>$25.50</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewOrderModal" data-id="ORD001"><i class="bi bi-eye"></i></button>
+                                    <select class="form-select form-select-sm d-inline-block w-auto ms-2" onchange="updateOrderStatus('ORD001', this.value)">
+                                        <option value="Pending">Pending</option>
+                                        <option value="Preparing" selected>Preparing</option>
+                                        <option value="Out for Delivery">Out for Delivery</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Users Management Content (Optional) -->
+                <div class="tab-pane fade" id="users-content" role="tabpanel">
+                    <h1 class="mt-4">Manage Users</h1>
+                     <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-user-list">
+                            <!-- Mock Data -->
+                            <tr>
+                                <td>USR101</td>
+                                <td>John Doe</td>
+                                <td>john.doe@example.com</td>
+                                <td>Customer</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteUser('USR101')"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>ADM001</td>
+                                <td>Admin User</td>
+                                <td>admin@example.com</td>
+                                <td>Admin</td>
+                                <td>
+                                    <!-- Admins typically cannot be deleted this way -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Add Restaurant Modal -->
+    <div class="modal fade" id="addRestaurantModal" tabindex="-1" aria-labelledby="addRestaurantModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRestaurantModalLabel">Add New Restaurant</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-restaurant-form">
+                        <div class="mb-3">
+                            <label for="add-restaurant-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="add-restaurant-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-restaurant-location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="add-restaurant-location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-restaurant-cuisine" class="form-label">Cuisine</label>
+                            <input type="text" class="form-control" id="add-restaurant-cuisine" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-restaurant-image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="add-restaurant-image_url">
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-restaurant-rating" class="form-label">Rating (0-5)</label>
+                            <input type="number" step="0.1" min="0" max="5" class="form-control" id="add-restaurant-rating">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Restaurant</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Restaurant Modal (similar structure to Add) -->
+    <div class="modal fade" id="editRestaurantModal" tabindex="-1" aria-labelledby="editRestaurantModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRestaurantModalLabel">Edit Restaurant</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-restaurant-form">
+                        <input type="hidden" id="edit-restaurant-id">
+                        <div class="mb-3">
+                            <label for="edit-restaurant-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-restaurant-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-restaurant-location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="edit-restaurant-location" required>
+                        </div>
+                         <div class="mb-3">
+                            <label for="edit-restaurant-cuisine" class="form-label">Cuisine</label>
+                            <input type="text" class="form-control" id="edit-restaurant-cuisine" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-restaurant-image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="edit-restaurant-image_url">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-restaurant-rating" class="form-label">Rating (0-5)</label>
+                            <input type="number" step="0.1" min="0" max="5" class="form-control" id="edit-restaurant-rating">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Menu Item Modal -->
+    <div class="modal fade" id="addMenuItemModal" tabindex="-1" aria-labelledby="addMenuItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMenuItemModalLabel">Add New Menu Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-menu-item-form">
+                        <input type="hidden" id="add-menu-item-restaurant-id"> <!-- Set by JS based on selection -->
+                        <div class="mb-3">
+                            <label for="add-menu-item-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="add-menu-item-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-menu-item-price" class="form-label">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="add-menu-item-price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-menu-item-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="add-menu-item-description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-menu-item-category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="add-menu-item-category">
+                        </div>
+                        <div class="mb-3">
+                            <label for="add-menu-item-image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="add-menu-item-image_url">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Menu Item</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Menu Item Modal (similar structure) -->
+     <div class="modal fade" id="editMenuItemModal" tabindex="-1" aria-labelledby="editMenuItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMenuItemModalLabel">Edit Menu Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-menu-item-form">
+                        <input type="hidden" id="edit-menu-item-id">
+                        <input type="hidden" id="edit-menu-item-restaurant-id">
+                         <div class="mb-3">
+                            <label for="edit-menu-item-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-menu-item-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-menu-item-price" class="form-label">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="edit-menu-item-price" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-menu-item-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="edit-menu-item-description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-menu-item-category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="edit-menu-item-category">
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-menu-item-image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="edit-menu-item-image_url">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Order Modal -->
+    <div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewOrderModalLabel">Order Details (ID: <span id="modal-order-id"></span>)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal-order-details-body">
+                    <!-- Order details loaded by JS -->
+                    <p><strong>Customer Name:</strong> <span id="modal-customer-name"></span></p>
+                    <p><strong>Shipping Address:</strong> <span id="modal-shipping-address"></span></p>
+                    <p><strong>Order Date:</strong> <span id="modal-order-date"></span></p>
+                    <p><strong>Status:</strong> <span id="modal-order-status"></span></p>
+                    <h6>Items:</h6>
+                    <ul id="modal-order-items-list">
+                        <!-- li>Item 1 (x2) - $10.00</li> -->
+                    </ul>
+                    <hr>
+                    <p class="fw-bold">Total: <span id="modal-order-total"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* Admin specific styles */
+body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 250px;
+    transition: margin .25s ease-out;
+    background-color: #343a40; /* Bootstrap dark */
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#sidebar-wrapper .list-group {
+    width: 250px;
+}
+
+#sidebar-wrapper .list-group-item {
+    border: none;
+    padding: 1rem 1.25rem;
+}
+#sidebar-wrapper .list-group-item.active {
+    background-color: #495057; /* A bit lighter than sidebar for active state */
+    border-left: 3px solid #0d6efd; /* Bootstrap primary */
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #495057;
+}
+
+
+#page-content-wrapper {
+    flex: 1;
+    min-width: 0; /* Important for flexbox to allow shrinking */
+    width: 100%;
+    padding-left: 0; /* Reset padding if sidebar is toggled */
+    transition: margin .25s ease-out;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    margin-left: 0;
+    width: 100%; /* Ensure it takes full width when sidebar is hidden */
+}
+
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -250px; /* Keep sidebar hidden when toggled on larger screens */
+    }
+}
+
+/* Ensure content doesn't get too squished if sidebar is always visible on larger screens and not toggled */
+@media (min-width: 768px) {
+    #wrapper:not(.toggled) #page-content-wrapper {
+         /* margin-left: 250px; /* This might be needed if sidebar is fixed and not toggled out */
+    }
+}
+
+
+.navbar {
+    margin-bottom: 0; /* Remove default margin if any */
+}
+
+.tab-content > .tab-pane {
+    padding: 1.5rem;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.modal-lg {
+    max-width: 800px;
+}
